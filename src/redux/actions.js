@@ -1,4 +1,4 @@
-import { CREATE_POST, FETCH_POSTS, HIDE_LOADER, SHOW_ALERT, HIDE_ALERT, SHOW_LOADER } from './types'
+import { CREATE_POST, FETCH_POSTS, HIDE_LOADER, REQUEST_POSTS, SHOW_ALERT, HIDE_ALERT, SHOW_LOADER } from './types'
 
 export function createPost(post) {
   return {
@@ -38,17 +38,20 @@ export function hideAlert() {
 } 
 
 export function fetchPosts() {
-  return async dispatch => {
-    try {
-      dispatch(showLoader())
-    const response = await fetch('http://jsonplaceholder.typicode.com/posts?_limit=5')
-    const json = await response.json()
-    setTimeout(() => {
-      dispatch({ type: FETCH_POSTS, payload: json })
-      dispatch(hideLoader())
-    }, 500)
-    } catch (e) {
-      dispatch(showAlert('Iets nodig verbeteren'))
-    }
+  return {
+    type: REQUEST_POSTS
   }
+  // return async dispatch => {
+  //   try {
+  //     dispatch(showLoader())
+  //   const response = await fetch('http://jsonplaceholder.typicode.com/posts?_limit=5')
+  //   const json = await response.json()
+  //   setTimeout(() => {
+  //     dispatch({ type: FETCH_POSTS, payload: json })
+  //     dispatch(hideLoader())
+  //   }, 500)
+  //   } catch (e) {
+  //     dispatch(showAlert('Iets nodig verbeteren'))
+  //   }
+  // }
 }
